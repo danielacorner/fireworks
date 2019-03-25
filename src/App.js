@@ -1,7 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 import logo from './logo.svg';
+import posed from 'react-pose';
 
+// TODO: add order of operations ('uncomment this 1st, this 2nd...')
+
+// const Firework = posed.div({
+//   loaded: { opacity: 0, y: 0 },
+//   fired: { opacity: 1, y: 100 },
+// });
+// TODO: how to get height here?
+const Firework = posed.div({
+  loaded: { opacity: 0, y: 0 },
+  fired: { opacity: 1, y: 200 },
+});
 /*
  * Calculates the angle between AB and the X axis
  * A and B are points (ax,ay) and (bx,by)
@@ -24,18 +36,16 @@ const AppStyles = styled.div`
   display: grid;
   align-items: center;
   height: 100vh;
-
-  @keyframes App-logo-spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+  user-select: none;
+  img {
+    pointer-events: none;
+    height: 100vh;
+    width: 100%;
+    opacity: 0.4;
   }
 
   position: relative;
-  .fireworkLauncher {
+  .launcher {
     height: 30px;
     width: 0;
     border: 10px solid cornflowerblue;
@@ -45,7 +55,7 @@ const AppStyles = styled.div`
     left: 50%;
     z-index: 999;
   }
-  .fireworks {
+  .laser {
     z-index: 1;
     position: relative;
     margin-left: -2px;
@@ -57,20 +67,11 @@ const AppStyles = styled.div`
     background-size: 8px 12px;
     background-repeat: repeat-y;
     background-position: 0% right;
-
-    animation-name: border-dance;
-    animation-duration: 2s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-
-    @keyframes border-dance {
-      from {
-        background-position: 0% right;
-      }
-      to {
-        background-position: 100% right;
-      }
-    }
+  }
+  .firework {
+    width: 2px;
+    height: 20px;
+    background: peachpuff;
   }
 `;
 
@@ -83,7 +84,7 @@ const App = () => {
     coords.x,
     coords.y,
     launcherCoords.x,
-    launcherCoords.y,
+    launcherCoords.y
   );
 
   // angleDeg ranges from 0 to 90 (vertical) then flips to -90 to 0
@@ -97,28 +98,38 @@ const App = () => {
   };
 
   const handleMouseDown = event => {
-    setFiring(!firing);
+    setFiring(true);
+  };
+  const handleMouseUp = event => {
+    setFiring(false);
   };
 
-  const FireworksStyles = styled.div`
-    height: ${distance({
+  const height =
+    distance({
       x1: coords.x,
       x2: launcherCoords.x,
       y1: coords.y,
       y2: launcherCoords.y,
-    }) - 50}px;
+    }) - 50;
+
+  const LaserStyles = styled.div`
+    height: ${height}px;
   `;
 
   return (
-    <AppStyles onMouseMove={handleMouseMove} onMouseDown={handleMouseDown}>
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-      </header>
-      <div
-        className={`fireworkLauncher ${firing ? 'firing' : ''}`}
-        style={{ transform: transform }}
-      >
-        {firing && <FireworksStyles className="fireworks" />}
+    <AppStyles
+      // set coords on mousemove
+      onMouseMove={handleMouseMove}
+      // set firing on mousedown/up
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+    >
+      <img src={logo} className="App-logo" alt="logo" />
+      <div className="launcher" style={{ transform: transform }}>
+        {/* show a laser pointer when we're not firing */}
+        {!firing && <LaserStyles className="laser" />}
+        {/* change the 'pose' of the firwork when we're firing */}
+        <Firework className="firework" pose={firing ? 'fired' : 'loaded'} />
       </div>
     </AppStyles>
   );
