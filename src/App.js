@@ -1,19 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Firework } from './components/Firework';
 import logo from './logo.svg';
-import posed from 'react-pose';
 
 // TODO: add order of operations ('uncomment this 1st, this 2nd...')
 
-// const Firework = posed.div({
-//   loaded: { opacity: 0, y: 0 },
-//   fired: { opacity: 1, y: 100 },
-// });
-// TODO: how to get height here?
-const Firework = posed.div({
-  loaded: { opacity: 0, y: 0 },
-  fired: { opacity: 1, y: 200 },
-});
 /*
  * Calculates the angle between AB and the X axis
  * A and B are points (ax,ay) and (bx,by)
@@ -84,7 +75,7 @@ const App = () => {
     coords.x,
     coords.y,
     launcherCoords.x,
-    launcherCoords.y
+    launcherCoords.y,
   );
 
   // angleDeg ranges from 0 to 90 (vertical) then flips to -90 to 0
@@ -116,6 +107,8 @@ const App = () => {
     height: ${height}px;
   `;
 
+  const bigArray = Array.apply(null, { length: 1 }).map(Number.call, Number);
+
   return (
     <AppStyles
       // set coords on mousemove
@@ -129,7 +122,7 @@ const App = () => {
         {/* show a laser pointer when we're not firing */}
         {!firing && <LaserStyles className="laser" />}
         {/* change the 'pose' of the firwork when we're firing */}
-        <Firework className="firework" pose={firing ? 'fired' : 'loaded'} />
+        {firing && <Firework array={bigArray} height={height} />}
       </div>
     </AppStyles>
   );

@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "react": "^16.8.5",
+    "react-anime": "^2.2.0",
     "react-dom": "^16.8.5",
     "react-pose": "^4.0.8",
     "react-scripts": "2.1.8",
