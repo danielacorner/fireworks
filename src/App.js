@@ -39,7 +39,7 @@ const AppStyles = styled.div`
     height: 30px;
     width: 0;
     border: 10px solid cornflowerblue;
-    background: tomato;
+    background: cornflowerblue;
     position: absolute;
     bottom: 0;
     left: 50%;
@@ -47,12 +47,30 @@ const AppStyles = styled.div`
   }
   .fireworks {
     z-index: 1;
-    content: '';
-    position: absolute;
-    border: 2px dashed red;
+    position: relative;
     margin-left: -2px;
     margin-top: 40px;
-    width: 0;
+    width: 4px;
+    /* Animating Dots & Dashes
+    https://zhirzh.github.io/2017/01/27/animating-dots-&-dashes/ */
+    background-image: linear-gradient(to top, red 50%, transparent 0%);
+    background-size: 8px 12px;
+    background-repeat: repeat-y;
+    background-position: 0% right;
+
+    animation-name: border-dance;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+
+    @keyframes border-dance {
+      from {
+        background-position: 0% right;
+      }
+      to {
+        background-position: 100% right;
+      }
+    }
   }
 `;
 
