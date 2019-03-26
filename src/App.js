@@ -42,8 +42,8 @@ const AppStyles = styled.div`
     border: 10px solid cornflowerblue;
     background: cornflowerblue;
     position: absolute;
-    bottom: 0;
-    left: 50%;
+    bottom: -20px;
+    left: calc(50% - 5px);
     z-index: 999;
   }
   .laser {
@@ -58,11 +58,6 @@ const AppStyles = styled.div`
     background-size: 8px 12px;
     background-repeat: repeat-y;
     background-position: 0% right;
-  }
-  .firework {
-    width: 2px;
-    height: 20px;
-    background: peachpuff;
   }
 `;
 
@@ -101,13 +96,11 @@ const App = () => {
       x2: launcherCoords.x,
       y1: coords.y,
       y2: launcherCoords.y,
-    }) - 50;
+    }) - 35;
 
   const LaserStyles = styled.div`
     height: ${height}px;
   `;
-
-  const bigArray = Array.apply(null, { length: 1 }).map(Number.call, Number);
 
   return (
     <AppStyles
@@ -122,7 +115,7 @@ const App = () => {
         {/* show a laser pointer when we're not firing */}
         {!firing && <LaserStyles className="laser" />}
         {/* change the 'pose' of the firwork when we're firing */}
-        {firing && <Firework array={bigArray} height={height} />}
+        {firing && <Firework height={height + 35} />}
       </div>
     </AppStyles>
   );
