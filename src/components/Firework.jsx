@@ -12,14 +12,15 @@ const FireworksStyles = styled.div`
     position: absolute;
   }
   .explosion {
-    width: 2px;
-    height: 25px;
+    width: 4px;
+    height: 3px;
     background: tomato;
     position: absolute;
     opacity: 0;
   }
 `;
 const duration = 400;
+const delay = 200;
 const payloadsArray = createArrayLengthN(10);
 const fragmentsArray = createArrayLengthN(10);
 
@@ -28,7 +29,7 @@ export const Firework = ({ height }) => {
     return {
       opacity: [0.7, 0, 0],
       translateY: [0, height * 1.2],
-      delay: index * 200,
+      delay: index * delay,
       easing: 'easeOutSine',
       loop: true,
       duration: duration * 2,
@@ -39,12 +40,15 @@ export const Firework = ({ height }) => {
     return {
       opacity: [0, 1, 0],
       translateY: [height, height + 10],
-      rotate: [fragmentsIndex * 0, fragmentsIndex * 40],
-      scale: [0.5, 1],
+      rotate: [
+        fragmentsIndex * 30 * Math.random(),
+        fragmentsIndex * 30 * Math.random(),
+      ],
+      scaleX: [Math.random(), 4 * Math.random()],
       translateX: [0, 40],
       easing: 'easeOutCubic',
       loop: true,
-      delay: duration + payloadIndex * 200,
+      delay: duration + payloadIndex * delay,
       duration: duration,
     };
   };
