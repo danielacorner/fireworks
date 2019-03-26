@@ -1,4 +1,5 @@
 import React from 'react';
+import { Transition } from 'react-transition-group';
 import styled from 'styled-components';
 import { Firework } from './components/Firework';
 import logo from './logo.svg';
@@ -102,6 +103,8 @@ const App = () => {
     height: ${height}px;
   `;
 
+  // TODO: multiple fireworks via useState, pass in transform to Firework, unmount after delay
+
   return (
     <AppStyles
       // set coords on mousemove
@@ -115,7 +118,11 @@ const App = () => {
         {/* show a laser pointer when we're not firing */}
         {!firing && <LaserStyles className="laser" />}
         {/* change the 'pose' of the firwork when we're firing */}
-        {firing && <Firework height={height + 35} />}
+        {/* {firing && ( */}
+        <Transition mountOnEnter={true} in={firing} timeout={1200}>
+          <Firework height={height + 35} />
+        </Transition>
+        {/* )} */}
       </div>
     </AppStyles>
   );

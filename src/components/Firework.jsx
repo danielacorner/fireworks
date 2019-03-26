@@ -21,10 +21,10 @@ const FireworksStyles = styled.div`
 `;
 const duration = 400;
 const delay = 200;
-const payloadsArray = createArrayLengthN(10);
+const payloadsArray = createArrayLengthN(1);
 const fragmentsArray = createArrayLengthN(10);
 
-export const Firework = ({ height }) => {
+export const Firework = React.memo(({ height }) => {
   const getPayloadProps = index => {
     return {
       opacity: [0.7, 0, 0],
@@ -73,4 +73,4 @@ export const Firework = ({ height }) => {
       ))}
     </FireworksStyles>
   );
-};
+});
