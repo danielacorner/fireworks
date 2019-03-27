@@ -103,7 +103,7 @@ const App = () => {
     height: ${height}px;
   `;
 
-  // TODO: multiple fireworks via useState, pass in transform to Firework, unmount after delay
+  // TODO: immediately unmount each Transition & animate on exit
 
   return (
     <AppStyles
@@ -118,11 +118,11 @@ const App = () => {
         {/* show a laser pointer when we're not firing */}
         {!firing && <LaserStyles className="laser" />}
         {/* change the 'pose' of the firwork when we're firing */}
-        {/* {firing && ( */}
-        <Transition mountOnEnter={true} in={firing} timeout={1200}>
-          <Firework height={height + 35} />
-        </Transition>
-        {/* )} */}
+        {firing && (
+          <Transition mountOnEnter={true} in={firing} timeout={1200}>
+            <Firework height={height + 35} />
+          </Transition>
+        )}
       </div>
     </AppStyles>
   );
