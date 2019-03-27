@@ -19,8 +19,8 @@ const FireworksStyles = styled.div`
     opacity: 0;
   }
 `;
-const duration = 400;
-const delay = 200;
+export const DURATION = 400;
+export const DELAY = 200;
 const payloadsArray = createArrayLengthN(1);
 const fragmentsArray = createArrayLengthN(10);
 
@@ -29,10 +29,10 @@ export const Firework = React.memo(({ height }) => {
     return {
       opacity: [0.7, 0, 0],
       translateY: [0, height * 1.2],
-      delay: index * delay,
+      delay: index * DELAY,
       easing: 'easeOutSine',
       loop: true,
-      duration: duration * 2,
+      duration: DURATION * 2,
     };
   };
 
@@ -48,8 +48,8 @@ export const Firework = React.memo(({ height }) => {
       translateX: [0, 40],
       easing: 'easeOutCubic',
       loop: true,
-      delay: duration + payloadIndex * delay,
-      duration: duration,
+      delay: DURATION + payloadIndex * DELAY,
+      duration: DURATION,
     };
   };
 
