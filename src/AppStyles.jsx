@@ -17,22 +17,24 @@ export const AppStyles = styled.div`
   position: relative;
   .launcher {
     position: absolute;
-    left: calc(50% - 5px);
+    left: 50%;
+    height: 30px;
     bottom: -20px;
+    width: 0;
     &:not(.fireworkWrapper) {
-      height: 30px;
-      width: 0;
+      left: calc(50% - 5px);
       border: 10px solid cornflowerblue;
       background: cornflowerblue;
     }
+    border: 10px solid transparent;
     z-index: 999;
   }
   .laser {
     z-index: 1;
     position: relative;
-    margin-left: -2px;
+    margin-left: -1px;
     margin-top: 40px;
-    width: 4px;
+    width: 2px;
     /* Animating Dots & Dashes
     https://zhirzh.github.io/2017/01/27/animating-dots-&-dashes/ */
     background-image: linear-gradient(to top, red 50%, transparent 0%);

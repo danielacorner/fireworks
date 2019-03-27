@@ -1,7 +1,6 @@
 import React from 'react';
-import { Transition } from 'react-transition-group';
 import { AppStyles } from './AppStyles';
-import { DELAY, Firework } from './components/Firework';
+import { DELAY, DURATION, Firework } from './components/Firework';
 import logo from './logo.svg';
 
 // TODO: add order of operations ('uncomment this 1st, this 2nd...')
@@ -65,7 +64,7 @@ const App = () => {
         transform: transform.current,
       };
       setFireworksArray([...fireworksArray, newFirework]);
-    }, DELAY);
+    }, DURATION + DELAY);
   };
   const handleMouseUp = event => {
     setFiring(false);
@@ -91,16 +90,41 @@ const App = () => {
         {!firing && <div className="laser" style={{ height: height }} />}
         {/* change the 'pose' of the firwork when we're firing */}
       </div>
-      {firing &&
-        fireworksArray.map(fw => (
+      {(firing &&
+        (fireworksArray[0] && (
           <div
-            key={fw.key}
+            key={fireworksArray[0].key}
             className="launcher fireworkWrapper"
-            style={{ transform: fw.transform }}
+            style={{ transform: fireworksArray[0].transform }}
           >
-            <Transition mountOnEnter={true} in={firing} timeout={1200}>
-              <Firework height={height + 35} />
-            </Transition>
+            <Firework height={height + 35} />
+          </div>
+        ))) ||
+        (fireworksArray[1] && (
+          <div
+            key={fireworksArray[1].key}
+            className="launcher fireworkWrapper"
+            style={{ transform: fireworksArray[1].transform }}
+          >
+            <Firework height={height + 35} />
+          </div>
+        )) ||
+        (fireworksArray[2] && (
+          <div
+            key={fireworksArray[2].key}
+            className="launcher fireworkWrapper"
+            style={{ transform: fireworksArray[2].transform }}
+          >
+            <Firework height={height + 35} />
+          </div>
+        )) ||
+        (fireworksArray[3] && (
+          <div
+            key={fireworksArray[3].key}
+            className="launcher fireworkWrapper"
+            style={{ transform: fireworksArray[3].transform }}
+          >
+            <Firework height={height + 35} />
           </div>
         ))}
     </AppStyles>
